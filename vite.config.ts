@@ -30,11 +30,14 @@ if (sentryDSN === undefined) {
 } else {
 	console.debug(chalk.yellow(`Sentry DSN`), chalk.blue(sentryDSN))
 }
-const firmwareRelease = process.env.FIRMWARE_RELEASE ?? '1.11.1'
+// See https://github.com/NordicPlayground/thingy-world-firmware-aws/releases
+const firmwareRelease = process.env.FIRMWARE_RELEASE ?? '2.0.1'
+// See https://www.nordicsemi.com/Products/Development-hardware/nRF9160-DK/Download
 const modemFirmwareRelease9160 =
 	process.env.MODEM_FIRMWARE_RELEASE_9160 ?? '1.3.6'
+// See https://www.nordicsemi.com/Products/nRF9161/Download
 const modemFirmwareRelease91x =
-	process.env.MODEM_FIRMWARE_RELEASE_91x ?? '2.0.0'
+	process.env.MODEM_FIRMWARE_RELEASE_91x ?? '2.0.1'
 
 const replaceInIndex = (data: Record<string, string>) => ({
 	name: 'replace-in-index',
