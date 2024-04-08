@@ -44,8 +44,20 @@ export const Provider = ({ children }: { children: ComponentChildren }) => {
 						if (isEqual(current, data.reboots)) {
 							return current
 						}
-						console.log(`[Memfault]`, data.reboots)
-						return data.reboots
+						const updated: Record<string, Array<Reboot>> = {}
+						for (const deviceId of Object.keys(data.reboots)) {
+							updated[deviceId] = [
+								...(current[deviceId] ?? []),
+								...((data.reboots[deviceId] ?? []) as Array<Reboot>).filter(
+									(r) =>
+										(current[deviceId] ?? []).find(
+											({ time }) => r.time === time,
+										) === undefined,
+								),
+							]
+						}
+						console.log(`[Memfault]`, updated)
+						return updated
 					})
 			})
 			.catch((err) => {
