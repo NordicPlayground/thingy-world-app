@@ -3,6 +3,7 @@ import { ShowWhenHot } from '../ShowWhenHot.js'
 import type { Device } from '../context/Devices.js'
 import { Memfault } from '../icons/Memfault.js'
 import { useMemfault, type Reboot } from './Context.js'
+import { BombIcon } from 'lucide-preact'
 
 const Hot = styled.span`
 	color: var(--color-nordic-pink);
@@ -17,6 +18,8 @@ export const Reboots = ({ device }: { device: Device }) => {
 
 	const numReboots = deviceReboots.length
 	const lastReboot = deviceReboots[0] as Reboot
+
+	const hasDtcFeature = device.state?.dev?.v.appV.includes('dt2c') ?? false
 
 	return (
 		<>
@@ -42,6 +45,22 @@ export const Reboots = ({ device }: { device: Device }) => {
 					)}
 				</ShowWhenHot>
 			</dd>
+			{hasDtcFeature && (
+				<>
+					<dt>
+						<BombIcon style={{ color: '#39c0ce' }} />
+					</dt>
+					<dd>
+						<abbr
+							title={`Device is running a firmware with 'double-tap to crash' enabled.`}
+						>
+							<small style={{ color: '#39c0ce' }}>
+								Tap button 1x, then 2x to crash
+							</small>
+						</abbr>
+					</dd>
+				</>
+			)}
 		</>
 	)
 }
