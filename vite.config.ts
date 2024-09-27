@@ -31,7 +31,7 @@ if (sentryDSN === undefined) {
 	console.debug(chalk.yellow(`Sentry DSN`), chalk.blue(sentryDSN))
 }
 // See https://github.com/NordicPlayground/thingy-world-firmware-aws/releases
-const firmwareRelease = process.env.FIRMWARE_RELEASE ?? '2.1.0'
+const firmwareRelease = process.env.FIRMWARE_RELEASE ?? '2.2.1'
 // See https://www.nordicsemi.com/Products/Development-hardware/nRF9160-DK/Download
 const modemFirmwareRelease9160 =
 	process.env.MODEM_FIRMWARE_RELEASE_9160 ?? '1.3.6'
