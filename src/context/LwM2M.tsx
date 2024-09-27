@@ -1,15 +1,15 @@
-import { createContext, type ComponentChildren } from 'preact'
 import {
-	type LwM2MObjectInstance,
-	type Geolocation_14201,
 	type BatteryAndPower_14202,
 	type ConnectionInformation_14203,
 	type DeviceInformation_14204,
 	type Environment_14205,
-} from '@hello.nrfcloud.com/proto-map'
+	type Geolocation_14201,
+	type LwM2MObjectInstance,
+} from '@hello.nrfcloud.com/proto-map/lwm2m'
+import { createContext, type ComponentChildren } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
+import { GeoLocationSource, useDevices, type Reported } from './Devices.js'
 import { MessageContext, useWebsocket } from './WebsocketConnection.js'
-import { useDevices, type Reported, GeoLocationSource } from './Devices.js'
 
 const LwM2MContext = createContext<{
 	objects: Record<string, LwM2MObjectInstance[]>

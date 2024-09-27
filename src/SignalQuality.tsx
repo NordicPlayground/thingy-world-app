@@ -1,4 +1,4 @@
-import { RSRP, SignalQualityTriangle } from '@nordicsemiconductor/rsrp-bar'
+import { RSRP, SignalQualityTriangle } from '@bifravst/rsrp-bar'
 import {
 	Signal,
 	SignalHigh,
@@ -7,12 +7,12 @@ import {
 	SignalZero,
 	Slash,
 } from 'lucide-preact'
+import type { JSX } from 'preact'
 import { styled } from 'styled-components'
 import { EnergyEstimate, type Device } from './context/Devices.js'
 import { LTEm } from './icons/LTE-m.js'
 import { NBIot } from './icons/NBIot.js'
 import type { LucideProps } from './icons/lucide.js'
-import type { JSX } from 'preact'
 
 const EnergyEstimateIcons: Record<
 	EnergyEstimate,
@@ -134,7 +134,7 @@ const NetworkInfo = ({ device }: { device: Device }) => {
 	const { nw, band } = device.state?.roam?.v ?? {}
 	return (
 		<Abbr title={`Band ${band}`} class="me-2">
-			{nw?.includes('LTE-M') ?? false ? <LTEm /> : <NBIot />}
+			{(nw?.includes('LTE-M') ?? false) ? <LTEm /> : <NBIot />}
 		</Abbr>
 	)
 }
