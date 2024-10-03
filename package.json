@@ -33,7 +33,7 @@
     "@aws/amazon-location-utilities-auth-helper": "1.0.7",
     "@bifravst/rsrp-bar": "8.0.4",
     "@hello.nrfcloud.com/proto-map": "16.1.9",
-    "@sentry/react": "8.32.0",
+    "@sentry/react": "8.33.1",
     "@sentry/tracing": "7.114.0",
     "compare-versions": "6.1.1",
     "date-fns": "4.1.0",
