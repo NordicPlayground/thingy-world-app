@@ -1,13 +1,4 @@
 import {
-	useDevices,
-	type NRPlusGateway,
-	type NRPlusNode,
-	type GeoLocation,
-} from './context/Devices.js'
-import { DeviceName } from './DeviceName.js'
-import { LastUpdate, Properties, Title } from './DeviceList.js'
-import { NRPlus } from './icons/NRPlus.js'
-import {
 	Focus,
 	Hexagon,
 	KeyRound,
@@ -20,18 +11,27 @@ import {
 	UploadCloud,
 	X,
 } from 'lucide-preact'
-import { RelativeTime } from './RelativeTime.js'
-import { ShowWhenHot } from './ShowWhenHot.js'
 import { useState } from 'preact/hooks'
+import { withCancel } from './cancelEvent.js'
+import { ConfigureCode } from './ConfigureCode.js'
+import {
+	useDevices,
+	type GeoLocation,
+	type NRPlusGateway,
+	type NRPlusNode,
+} from './context/Devices.js'
+import { useSettings } from './context/Settings.js'
 import { useWebsocket } from './context/WebsocketConnection.js'
-import { sortLocations } from './sortLocations.js'
-import { removeOldLocation } from './removeOldLocation.js'
+import { LastUpdate, Properties, Title } from './DeviceList.js'
+import { DeviceName } from './DeviceName.js'
+import { hideDetails } from './hooks/useDetails.js'
+import { NRPlus } from './icons/NRPlus.js'
 import { NRPlusTopology } from './nrplus/NRPlusTopology.js'
 import { PinTile } from './PinTile.js'
-import { ConfigureCode } from './ConfigureCode.js'
-import { useSettings } from './context/Settings.js'
-import { withCancel } from './cancelEvent.js'
-import { hideDetails } from './hooks/useDetails.js'
+import { RelativeTime } from './RelativeTime.js'
+import { removeOldLocation } from './removeOldLocation.js'
+import { ShowWhenHot } from './ShowWhenHot.js'
+import { sortLocations } from './sortLocations.js'
 
 export const NRPlusGatewayTile = ({
 	gateway,
@@ -56,7 +56,6 @@ export const NRPlusGatewayTile = ({
 	return (
 		<>
 			<Title
-				type={'button'}
 				onClick={withCancel(() => {
 					if (deviceLocation !== undefined) {
 						onCenter(deviceLocation)
@@ -188,7 +187,7 @@ const Node = ({
 				)}
 				{configure && (
 					<span class="p-1">
-						<button type="button me-1" onClick={() => setConfigure(false)}>
+						<button type="button" onClick={() => setConfigure(false)}>
 							<X strokeWidth={1} />
 						</button>
 						<label title={'Use relay'} class="mx-1">
@@ -213,7 +212,7 @@ const Node = ({
 						].map(({ color, name }) => (
 							<>
 								<button
-									type="button me-1"
+									type="button"
 									style={{ color }}
 									onClick={() => {
 										const nrplusCtrl = viaRelay(relay[id] ?? false)(
@@ -230,7 +229,7 @@ const Node = ({
 									<Lightbulb strokeWidth={2} />
 								</button>
 								<button
-									type="button me-1"
+									type="button"
 									style={{ color }}
 									onClick={() => {
 										const nrplusCtrl = viaRelay(relay[id] ?? false)(

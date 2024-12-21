@@ -1,15 +1,13 @@
 import { format, subSeconds } from 'date-fns'
-import { Battery, Thermometer, X, Zap } from 'lucide-preact'
+import { Battery, Thermometer, X, Zap, type LucideIcon } from 'lucide-preact'
+import type { Ref } from 'preact'
 import { useRef } from 'preact/hooks'
 import { styled } from 'styled-components'
 import { colors } from '../colors.js'
 import { useDevices, type Reading } from '../context/Devices.js'
+import { hideDetails, useDetails } from '../hooks/useDetails.js'
 import { HistoryChart } from './HistoryChart.js'
 import type { Dataset } from './chartMath.js'
-import type { LucideProps } from '../icons/lucide.js'
-import type { Ref } from 'preact'
-import { useDetails, hideDetails } from '../hooks/useDetails.js'
-import type { JSX } from 'preact'
 
 const chartBaseWidth = 0.6 // percent of window width
 const chartBaseHeight = 0.5 // percent of window width
@@ -40,7 +38,7 @@ export const ChartContainer = styled.aside`
 type ChartInfo = {
 	datasets: Dataset[]
 	title: string
-	Icon: (props: LucideProps) => JSX.Element | null
+	Icon: LucideIcon
 	color: string
 }
 
@@ -115,7 +113,7 @@ export const DeviceHistory = () => {
 	if (history?.fgI !== undefined) {
 		fgData.push({
 			min: -450, //-500,
-			max: 100, //1000,
+			max: 150, //1000,
 			values: history.fgI.map(([v, d]) => [v, subSeconds(history.base, d)]),
 			color: colors['nordic-sun'],
 			format: (v) => `${Math.round(v)} mA`,

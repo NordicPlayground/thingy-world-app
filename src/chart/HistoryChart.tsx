@@ -28,6 +28,9 @@ export const HistoryChart = ({
 	})
 
 	const labels = generateLabels(m, data.xAxis)
+	const yAxisLegendLineWidth = fontSize - (fontSize * 1) / 3
+	const dataset0 = data.datasets[0]
+	const dataset1 = data.datasets[1]
 
 	return (
 		<svg
@@ -45,7 +48,7 @@ export const HistoryChart = ({
 							style={`stroke:${data.xAxis.color};stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:none`}
 							d={`M ${
 								m.paddingLeft + m.xSpacing * data.xAxis.labelEvery * index
-							},${m.paddingY} v ${m.yAxisHeight}`}
+							},${m.paddingY * 2} v ${m.yAxisHeight}`}
 						/>
 						{!data.xAxis.hideLabels && index > 0 && (
 							<text
@@ -69,32 +72,112 @@ export const HistoryChart = ({
 			</g>
 			{/* y axis labels */}
 			<g>
+				{dataset0 !== undefined && (
+					<>
+						{/* line, first dataset, top */}
+						<path
+							style={`stroke:${data.xAxis.color};stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;paint-order:stroke fill markers`}
+							d={`M ${m.paddingLeft - yAxisLegendLineWidth},${m.paddingY * 2} h ${yAxisLegendLineWidth}`}
+						/>
+						{/* line, first dataset, bottom */}
+						<path
+							style={`stroke:${data.xAxis.color};stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;paint-order:stroke fill markers`}
+							d={`M ${m.paddingLeft - yAxisLegendLineWidth},${m.paddingY * 2 + m.yAxisHeight} h ${yAxisLegendLineWidth}`}
+						/>
+						{/* text, first dataset, top */}
+						<text
+							style={`fill:${data.xAxis.color};opacity:0.5;font-weight:700`}
+							x={m.paddingLeft - yAxisLegendLineWidth - 2}
+							y={m.paddingY * 2 + fontSize / 3}
+							text-anchor={'end'}
+							font-size={fontSize}
+						>
+							{dataset0.format(dataset0.max)}
+						</text>
+						{/* text, first dataset, bottom */}
+						<text
+							style={`fill:${data.xAxis.color};opacity:0.5;font-weight:700`}
+							x={m.paddingLeft - yAxisLegendLineWidth - 2}
+							y={m.paddingY * 2 + m.yAxisHeight + fontSize / 3}
+							text-anchor={'end'}
+							font-size={fontSize}
+						>
+							{dataset0.format(dataset0.min)}
+						</text>
+					</>
+				)}
+				{dataset1 !== undefined && (
+					<>
+						{/* line, second dataset, top */}
+						<path
+							style={`stroke:${data.xAxis.color};stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;paint-order:stroke fill markers`}
+							d={`M ${m.paddingLeft + m.xSpacing * (labels.length - 1) * data.xAxis.labelEvery},${m.paddingY * 2} h ${yAxisLegendLineWidth}`}
+						/>
+						{/* line, second dataset, bottom */}
+						<path
+							style={`stroke:${data.xAxis.color};stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;paint-order:stroke fill markers`}
+							d={`M ${m.paddingLeft + m.xSpacing * (labels.length - 1) * data.xAxis.labelEvery},${m.paddingY * 2 + m.yAxisHeight} h ${yAxisLegendLineWidth}`}
+						/>
+						{/* text, first dataset, top */}
+						<text
+							style={`fill:${data.xAxis.color};opacity:0.5;font-weight:700`}
+							x={
+								m.paddingLeft +
+								m.xSpacing * (labels.length - 1) * data.xAxis.labelEvery +
+								yAxisLegendLineWidth +
+								2
+							}
+							y={m.paddingY * 2 + fontSize / 3}
+							text-anchor={'start'}
+							font-size={fontSize}
+						>
+							{dataset1.format(dataset1.max)}
+						</text>
+						{/* text, first dataset, bottom */}
+						<text
+							style={`fill:${data.xAxis.color};opacity:0.5;font-weight:700`}
+							x={
+								m.paddingLeft +
+								m.xSpacing * (labels.length - 1) * data.xAxis.labelEvery +
+								yAxisLegendLineWidth +
+								2
+							}
+							y={m.paddingY * 2 + m.yAxisHeight + fontSize / 3}
+							text-anchor={'start'}
+							font-size={fontSize}
+						>
+							{dataset1.format(dataset1.min)}
+						</text>
+					</>
+				)}
+			</g>
+			{/*
+			<g>
 				{data.datasets.map(({ min, max, format }, index) => {
+					const width = fontSize - (fontSize * 1) / 3
 					const xPos =
 						index === 0
 							? m.paddingLeft - fontSize
 							: m.paddingLeft +
-								m.xSpacing * data.xAxis.labelEvery * (labels.length - 1) +
-								fontSize
+							m.xSpacing * data.xAxis.labelEvery * (labels.length - 1) +
+							fontSize
 					const anchor = index === 0 ? 'end' : 'start'
 					return (
 						<>
 							<path
 								style={`stroke:${data.xAxis.color};stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;paint-order:stroke fill markers`}
-								d={`M ${xPos + (fontSize * 1) / 3},${m.paddingY} h ${
-									fontSize - (fontSize * 1) / 3
-								}`}
+								d={`M ${xPos + (fontSize * 1) / 3},${m.paddingY * 2} h ${width
+									}`}
 							/>
 							<path
 								style={`stroke:${data.xAxis.color};stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;paint-order:stroke fill markers`}
-								d={`M ${xPos + (fontSize * 1) / 3},${
-									m.paddingY + m.yAxisHeight
-								} h ${fontSize - (fontSize * 1) / 3}`}
+								d={`M ${xPos + (fontSize * 1) / 3},${m.paddingY * 2 + m.yAxisHeight
+									} h ${fontSize - (fontSize * 1) / 3}`}
 							/>
 							<text
 								style={`fill:${data.xAxis.color};opacity:0.5;font-weight:700`}
 								x={xPos}
-								y={m.paddingY + fontSize / 3}
+								y={m.paddingY * 2 + fontSize / 3}
 								text-anchor={anchor}
 								font-size={fontSize}
 							>
@@ -103,7 +186,7 @@ export const HistoryChart = ({
 							<text
 								style={`fill:${data.xAxis.color};opacity:0.5;font-weight:700`}
 								x={xPos}
-								y={m.paddingY + m.yAxisHeight + fontSize / 3}
+								y={m.paddingY * 2 + m.yAxisHeight + fontSize / 3}
 								text-anchor={anchor}
 								font-size={fontSize}
 							>
@@ -113,6 +196,7 @@ export const HistoryChart = ({
 					)
 				})}
 			</g>
+			*/}
 			{/* helper lines */}
 			{data.datasets
 				.filter(({ helperLines }) => helperLines !== undefined)
@@ -125,12 +209,12 @@ export const HistoryChart = ({
 									stroke={data.xAxis.color}
 									stroke-width={1}
 									stroke-dasharray={'2 2'}
-									d={`M ${m.paddingLeft},${y} h ${m.xAxisWidth}`}
+									d={`M ${m.paddingLeft},${y + m.paddingY} h ${m.xAxisWidth}`}
 								/>
 								<text
 									fill={data.xAxis.color}
 									font-size={fontSize * 0.8}
-									y={y + 3}
+									y={y + m.paddingY + 3}
 									x={m.paddingLeft - 3}
 									text-anchor="end"
 								>
@@ -139,7 +223,7 @@ export const HistoryChart = ({
 								<text
 									fill={data.xAxis.color}
 									font-size={fontSize * 0.8}
-									y={y + 3}
+									y={y + m.paddingY + 3}
 									x={m.paddingLeft + 3 + m.xAxisWidth}
 									text-anchor="start"
 								>
@@ -157,9 +241,13 @@ export const HistoryChart = ({
 					const x = m.xPosition(ts)
 					if (x === null) continue
 					if (i === 0) {
-						lineDefinition.push(`M ${x},${m.yPosition(dataset, v)}`)
+						lineDefinition.push(
+							`M ${x},${m.yPosition(dataset, v) + m.paddingY}`,
+						)
 					} else {
-						lineDefinition.push(`L ${x},${m.yPosition(dataset, v)}`)
+						lineDefinition.push(
+							`L ${x},${m.yPosition(dataset, v) + m.paddingY}`,
+						)
 					}
 				}
 				return (
@@ -180,7 +268,7 @@ export const HistoryChart = ({
 						labels.push(
 							<circle
 								style={`fill:none;stroke:${dataset.color};stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;paint-order:markers fill stroke`}
-								cy={m.yPosition(dataset, v)}
+								cy={m.yPosition(dataset, v) + m.paddingY}
 								cx={x}
 								r="6"
 							/>,
@@ -188,7 +276,7 @@ export const HistoryChart = ({
 						labels.push(
 							<text
 								style={`fill:${dataset.color};font-weight:700;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-opacity:1;paint-order:stroke fill markers`}
-								y={m.yPosition(dataset, v) - m.padding / 2}
+								y={m.yPosition(dataset, v) + m.paddingY - m.padding / 2}
 								x={x}
 								text-anchor="middle"
 								font-size={fontSize}

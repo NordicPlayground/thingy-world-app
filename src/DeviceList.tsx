@@ -1,18 +1,18 @@
 import { styled } from 'styled-components'
-import { DisconnectedWarning } from './DisconnectedWarning.js'
-import { HistoryOnly } from './HistoryOnly.js'
-import { Tracker } from './Tracker.js'
 import {
 	isNRPlusGateway,
 	isTracker,
 	isWirepasGateway,
 	type GeoLocation,
 } from './context/Devices.js'
-import { NRPlusGatewayTile } from './NRPlusGatewayTile.js'
-import { WirepasGatewayTile } from './wirepas/WirepasGatewayTile.js'
-import { useVisibleDevices } from './context/VisibleDevices.js'
 import { useMap } from './context/Map.js'
+import { useVisibleDevices } from './context/VisibleDevices.js'
+import { DisconnectedWarning } from './DisconnectedWarning.js'
+import { HistoryOnly } from './HistoryOnly.js'
 import { showDetails } from './hooks/useDetails.js'
+import { NRPlusGatewayTile } from './NRPlusGatewayTile.js'
+import { Tracker } from './Tracker.js'
+import { WirepasGatewayTile } from './wirepas/WirepasGatewayTile.js'
 
 const DeviceState = styled.section`
 	color: var(--color-nordic-light-grey);
@@ -92,7 +92,7 @@ export const LastUpdate = styled.abbr`
 	}
 `
 
-export const Title = styled.button`
+export const Title = styled.div`
 	display: flex;
 	width: 100%;
 	align-items: center;

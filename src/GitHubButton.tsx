@@ -1,5 +1,5 @@
 import { Github } from 'lucide-preact'
-import pjson from '../package.json'
+import pjson from '../package.json' with { type: 'json' }
 
 export const GitHubButton = () => (
 	<a class="btn btn-link" href={pjson.homepage} target="_blank">

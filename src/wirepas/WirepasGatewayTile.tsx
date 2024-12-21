@@ -1,3 +1,4 @@
+import { sum } from 'lodash-es'
 import {
 	Check,
 	Focus,
@@ -14,29 +15,28 @@ import {
 	X,
 	Zap,
 } from 'lucide-preact'
-import { LastUpdate, Title } from '../DeviceList.js'
-import { DeviceName } from '../DeviceName.js'
-import { PinTile } from '../PinTile.js'
-import { RelativeTime } from '../RelativeTime.js'
+import { useState } from 'preact/hooks'
+import { withCancel } from '../cancelEvent.js'
+import { ConfigureCode } from '../ConfigureCode.js'
 import {
 	useDevices,
 	WirepasMeshQOS,
+	type GeoLocation,
 	type WirepasGateway,
 	type WirepasGatewayNode,
-	type GeoLocation,
 } from '../context/Devices.js'
-import { removeOldLocation } from '../removeOldLocation.js'
-import { sortLocations } from '../sortLocations.js'
-import { FiveGMesh } from '../icons/5GMesh.js'
-import { useState } from 'preact/hooks'
-import { ConfigureCode } from '../ConfigureCode.js'
 import { useSettings } from '../context/Settings.js'
 import { useWebsocket } from '../context/WebsocketConnection.js'
-import { ShowWhenHot } from '../ShowWhenHot.js'
-import { sum } from 'lodash-es'
-import { formatId } from './formatId.js'
-import { withCancel } from '../cancelEvent.js'
+import { LastUpdate, Title } from '../DeviceList.js'
+import { DeviceName } from '../DeviceName.js'
 import { showDetails } from '../hooks/useDetails.js'
+import { FiveGMesh } from '../icons/5GMesh.js'
+import { PinTile } from '../PinTile.js'
+import { RelativeTime } from '../RelativeTime.js'
+import { removeOldLocation } from '../removeOldLocation.js'
+import { ShowWhenHot } from '../ShowWhenHot.js'
+import { sortLocations } from '../sortLocations.js'
+import { formatId } from './formatId.js'
 
 export const WirepasGatewayTile = ({
 	gateway,
@@ -66,7 +66,6 @@ export const WirepasGatewayTile = ({
 	return (
 		<>
 			<Title
-				type={'button'}
 				onClick={withCancel(() => {
 					if (deviceLocation !== undefined) {
 						onCenter(deviceLocation)

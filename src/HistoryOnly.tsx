@@ -10,7 +10,7 @@ export const HistoryOnly = ({
 	device: Device
 	onClick: () => void
 }) => (
-	<Title type={'button'} onClick={onClick}>
+	<Title onClick={onClick}>
 		<LineChart class={'mx-1'} />
 		<span class="info">
 			<DeviceName device={device} />
