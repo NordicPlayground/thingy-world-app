@@ -1,8 +1,6 @@
 import { merge } from 'lodash-es'
 import { createContext, type ComponentChildren } from 'preact'
 import { useContext, useState } from 'preact/hooks'
-import type { NRPlusNetworkTopology } from '../nrplus/parseTopology.js'
-import { maybeDate } from '../maybeDate.js'
 
 export type ButtonPress = {
 	v: number // 4398
@@ -151,8 +149,6 @@ export type GeoLocation = {
 }
 
 export enum DeviceType {
-	WIREPAS_5G_MESH_GW = 'wirepas-5g-mesh-gateway',
-	NRPLUS_GW = 'nrplus-gateway',
 	SOFT_SIM = 'soft-sim',
 }
 export type Location = Record<GeoLocationSource, GeoLocation>
@@ -162,72 +158,6 @@ export type Device = {
 	location?: Location
 	history?: Summary
 	type?: DeviceType
-}
-
-// NR+ Gateway
-export type NRPlusNode = {
-	pccStatus?: {
-		status: string // e.g. "valid - PDC can be received"
-		ts: number
-	}
-	env?: {
-		modemTemp: number
-		temp?: number
-		ts: number
-	}
-	btn?: {
-		n: number // e.g. 1,
-		ts: number
-	}
-}
-export type NRPlusGateway = {
-	id: string
-	state: {
-		nodes: Record<string, NRPlusNode>
-		id: number // e.g. 38,
-		networkId: number // e.g. 22
-		topology?: NRPlusNetworkTopology
-	}
-	location?: Location
-}
-
-/**
- * Quality of Service
- */
-export enum WirepasMeshQOS {
-	Normal = 0,
-	High = 1,
-}
-
-export type WirepasGatewayNode = {
-	// latency in MS
-	lat: number // e.g. 54
-	hops: number // e.g. 1
-	ts: string // e.g. '2024-02-05T13:44:06.050Z'
-	qos: WirepasMeshQOS // e.g. 1
-	payload?: {
-		temp?: {
-			v: number // e.g. 24.850000381469727
-			ts: number
-		}
-		btn?: {
-			v: number
-			ts: number
-		}
-		led?: {
-			r?: boolean
-			g?: boolean
-			b?: boolean
-		}
-	}
-}
-export type WirepasGateway = {
-	id: string
-	type: DeviceType.WIREPAS_5G_MESH_GW
-	location?: Location
-	state: {
-		nodes: Record<string /* node id */, WirepasGatewayNode>
-	}
 }
 
 export type Devices = Record<string, Device>
@@ -257,24 +187,6 @@ export const isTracker = (device: Device): boolean => {
 
 export const hasSoftSIM = (device: Device): boolean =>
 	device.state?.dev?.v?.appV?.includes('softsim') ?? false
-
-export const isNRPlusGateway = (
-	device: Record<string, unknown>,
-): device is NRPlusGateway =>
-	'id' in device &&
-	typeof device.id === 'string' &&
-	device.id?.startsWith('nrplus-gw-') &&
-	'state' in device &&
-	typeof device.state === 'object' &&
-	'nodes' in (device.state ?? {})
-
-export const isWirepasGateway = (
-	device: Record<string, unknown>,
-): device is WirepasGateway =>
-	'id' in device &&
-	typeof device.id === 'string' &&
-	'type' in device &&
-	device.type === DeviceType.WIREPAS_5G_MESH_GW
 
 export const DevicesContext = createContext<{
 	devices: Devices
@@ -401,18 +313,6 @@ export const Provider = ({ children }: { children: ComponentChildren }) => {
 				lastUpdateTs: (deviceId) => {
 					const device = knownDevices[deviceId]
 					if (device === undefined) return null
-					if (isNRPlusGateway(device))
-						return getLastUpdateTime(
-							Object.values(device.state.nodes)
-								.map((node) => [node.pccStatus?.ts, node.btn?.ts, node.env?.ts])
-								.flat(),
-						)
-					if (deviceTypes[device.id] === DeviceType.WIREPAS_5G_MESH_GW) {
-						const nodes = (device as WirepasGateway).state.nodes
-						return getLastUpdateTime(
-							Object.values(nodes).map((node) => maybeDate(node.ts)?.getTime()),
-						)
-					}
 					return getDeviceLastUpdateTime(knownDevices[deviceId])
 				},
 				updateAlias: (deviceId, alias) => {
@@ -449,8 +349,6 @@ const getDeviceLastUpdateTime = (device?: Device): null | number => {
 export const getLastUpdateTime = (
 	lastUpdateTimeStamps: (number | undefined)[],
 ): null | number => {
-	const nonEmpty = lastUpdateTimeStamps.filter(
-		(s) => s !== undefined,
-	) as number[]
+	const nonEmpty = lastUpdateTimeStamps.filter((s) => s !== undefined)
 	return nonEmpty.length > 0 ? Math.max(...nonEmpty) : null
 }

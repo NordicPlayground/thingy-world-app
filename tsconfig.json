@@ -20,6 +20,7 @@
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
     "jsxImportSource": "preact",
+    "allowImportingTsExtensions": true,
     "paths": {
       "react": ["./node_modules/preact/compat/"],
       "react-dom": ["./node_modules/preact/compat/"]
