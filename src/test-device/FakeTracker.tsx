@@ -1,5 +1,5 @@
-import { FakeDevice } from './FakeDevice.js'
 import type { Reported, Summary } from '../context/Devices.js'
+import { FakeDevice } from './FakeDevice.js'
 
 export const FakeTracker = () => (
 	<FakeDevice fakeState={fakeTrackerState} fakeHistory={fakeTrackerHistory} />

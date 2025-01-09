@@ -1,5 +1,5 @@
-import * as Sentry from '@sentry/react'
 import { browserTracingIntegration } from '@sentry/browser'
+import * as Sentry from '@sentry/react'
 
 const enableSentry =
 	SENTRY_DSN !== undefined && import.meta.env.PROD !== undefined

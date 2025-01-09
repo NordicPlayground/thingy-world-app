@@ -4,9 +4,9 @@ import { GeoLocationAge } from './GeoLocationAge.js'
 import { locationSourceColors } from './colors.js'
 import type { Device } from './context/Devices.js'
 import { LocationSourceLabels } from './context/LocationSourceLabels.js'
-import { sortLocations } from './sortLocations.js'
-import { removeOldLocation } from './removeOldLocation.js'
 import { useMap } from './context/Map.js'
+import { removeOldLocation } from './removeOldLocation.js'
+import { sortLocations } from './sortLocations.js'
 
 const LocationSource = styled.span`
 	font-weight: var(--monospace-font-weight-bold);

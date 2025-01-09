@@ -1,14 +1,14 @@
 import { createContext, type ComponentChildren } from 'preact'
 import { useContext, useEffect, useRef, useState } from 'preact/hooks'
+import type { Reboot } from '../memfault/Context.js'
 import {
+	GeoLocationSource,
 	useDevices,
+	type DeviceType,
 	type GeoLocation,
 	type Reported,
 	type Summary,
-	GeoLocationSource,
-	DeviceType,
 } from './Devices.js'
-import type { Reboot } from '../memfault/Context.js'
 
 export const WebsocketContext = createContext<{
 	connected: boolean

@@ -2,8 +2,8 @@ import { useEffect } from 'preact/hooks'
 import {
 	useDevices,
 	type Device,
-	type Location,
 	type GeoLocation,
+	type Location,
 } from '../context/Devices.js'
 import { useMap } from '../context/Map.js'
 import { useVisibleDevices } from '../context/VisibleDevices.js'

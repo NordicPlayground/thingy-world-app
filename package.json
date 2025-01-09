@@ -29,11 +29,11 @@
   },
   "dependencies": {
     "@aws-amplify/core": "6.9.0",
-    "@aws-sdk/credential-provider-cognito-identity": "3.721.0",
+    "@aws-sdk/credential-provider-cognito-identity": "3.723.0",
     "@aws/amazon-location-utilities-auth-helper": "1.2.1",
     "@bifravst/rsrp-bar": "8.0.6",
     "@hello.nrfcloud.com/proto-map": "16.1.33",
-    "@sentry/react": "8.47.0",
+    "@sentry/react": "8.48.0",
     "@sentry/tracing": "7.114.0",
     "compare-versions": "6.1.1",
     "date-fns": "4.1.0",
@@ -47,7 +47,7 @@
     "svg-country-flags": "1.2.10"
   },
   "devDependencies": {
-    "@bifravst/eslint-config-typescript": "6.1.19",
+    "@bifravst/eslint-config-typescript": "6.1.20",
     "@bifravst/prettier-config": "1.1.4",
     "@commitlint/config-conventional": "19.6.0",
     "@nordicsemiconductor/from-env": "3.0.1",
@@ -68,7 +68,7 @@
   },
   "engines": {
     "node": ">=22",
-    "npm": ">=11"
+    "npm": ">=10"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

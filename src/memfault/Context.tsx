@@ -1,6 +1,6 @@
+import { isEqual } from 'lodash-es'
 import { createContext, type ComponentChildren } from 'preact'
 import { useContext, useEffect, useState } from 'preact/hooks'
-import { isEqual } from 'lodash-es'
 import { MessageContext, useWebsocket } from '../context/WebsocketConnection.js'
 
 export type Reboot = {

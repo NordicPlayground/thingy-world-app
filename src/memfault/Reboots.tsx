@@ -1,9 +1,9 @@
+import { BombIcon } from 'lucide-preact'
 import { styled } from 'styled-components'
 import { ShowWhenHot } from '../ShowWhenHot.js'
 import type { Device } from '../context/Devices.js'
 import { Memfault } from '../icons/Memfault.js'
 import { useMemfault, type Reboot } from './Context.js'
-import { BombIcon } from 'lucide-preact'
 
 const Hot = styled.span`
 	color: var(--color-nordic-pink);

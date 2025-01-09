@@ -1,8 +1,8 @@
 import { ChevronUp, Settings2, Star, StarOff } from 'lucide-preact'
 import { styled } from 'styled-components'
+import { colors } from './colors.js'
 import { useDevices } from './context/Devices.js'
 import { useSettings } from './context/Settings.js'
-import { colors } from './colors.js'
 
 const SettingsPanel = styled.aside`
 	font-family: 'Inter', sans-serif;

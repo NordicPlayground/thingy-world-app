@@ -1,7 +1,7 @@
 import { Check, X } from 'lucide-preact'
 import { useState } from 'preact/hooks'
-import { useSettings } from './context/Settings.js'
 import { cancelEvent } from './cancelEvent.js'
+import { useSettings } from './context/Settings.js'
 
 export const ConfigureCode = ({
 	device,

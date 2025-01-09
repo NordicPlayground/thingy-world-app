@@ -1,7 +1,7 @@
 import { PinIcon, PinOffIcon } from 'lucide-preact'
-import { useSettings } from './context/Settings.js'
-import { colors } from './colors.js'
 import { withCancel } from './cancelEvent.js'
+import { colors } from './colors.js'
+import { useSettings } from './context/Settings.js'
 
 export const PinTile = ({ device }: { device: { id: string } }) => {
 	const {
